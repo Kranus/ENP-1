@@ -90,8 +90,10 @@ void child_function () {
 
   case '4':
     div = 10;
+    float f = 1.1;
     child_print("Exiting because of division by zero");
-    div = div / 0;
+    f = f/0;
+    //div = div / 0;
     break;
 
   case '5':
