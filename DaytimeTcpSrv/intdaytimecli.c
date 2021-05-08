@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
     dest_addr.sin_port          = htons(SRVPORT);//htons(SRVPORT);
     dest_addr.sin_addr.s_addr   = htonl(SRVIPADDR); // !
 
-
     connect(sockfd, (SA*) &dest_addr, sizeof(dest_addr));
     ERR_N_DIE("Connect error");
 

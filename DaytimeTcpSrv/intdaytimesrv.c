@@ -60,8 +60,6 @@ init_srv_socket (SA_IN* srvaddr) {
     bind(listenfd, (SA *) srvaddr, sizeof(SA_IN));
     ERR_N_DIE("Bind error");
 
-
-
     // Den socket als Listen-Socket konfigurieren
     listen(listenfd, LISTENQ);
     ERR_N_DIE("Listen error");
@@ -75,8 +73,6 @@ init_srv_socket (SA_IN* srvaddr) {
     len = sizeof(my_addr);
     bzero(&my_addr, len);
     getsockname(listenfd, (SA*) &my_addr, &len);
-
-    printf("Server-IP: %s\n", myIP);
 
     return listenfd;
 }
