@@ -6,29 +6,29 @@ size_t
 readline (int fd, void *vptr, size_t maxlen) {
 
     size_t  n;
-    ssize_t rc;
-    char    c;
+    ssize_t readcount;
+    char    currentByte;
     char*   ptr;
 
-    ptr = vptr;
+    ptr = vptr; // Konvertierung
 
     for (n = 1; n < maxlen; n++) {
 
 again:
-        rc = read(fd, &c, 1);
+        readcount = read(fd, &currentByte, 1);
 
-        if (rc == 1) {
-            *ptr = c;
+        if (readcount == 1) {
+            *ptr = currentByte;
             ptr++;
 
-            if (c == '\n') {
+            if (currentByte == '\n') {
                 break;
             }
         }
 
-        else if (rc == 0) {
+        else if (readcount == 0) {
             if (n == 1)
-                return 0; // keine Daten geschrieben (erste iteration)
+                return 0; // keine Daten gelesen (erste iteration)
             else
                 break;    // Daten geschrieben, fertig --> break for
         }
@@ -45,8 +45,7 @@ again:
 
     }
 
-    *ptr = '\0';
+    *ptr = '\0'; // hier terminieren oder im Aufruf berücksichtigen? maxlen + 1?
 
     return n;
-
 }

@@ -13,15 +13,13 @@ str_echo (int connfd) {
     while (1) {
         n = readline(connfd, recvline, MAXLINE);
 
-        printf("Received: %s\n", recvline);
+        printf("Received:\t%s\n", recvline);
 
         if (n == 0)
             break;
 
         writen(connfd, recvline, n);
     }
-
-    // fflush
 
     return;
 }
@@ -34,14 +32,14 @@ main(int argc, char *argv[]) {
     int        connfd;
 
     //--------------------------------------------------------------------------
-    listenfd = socket(AF_INET, SOCK_STREAM, 0);
-    ERR_N_DIE("Socket creation error");
 
     memset(&srv_addr, 0, sizeof(srv_addr));
     srv_addr.sin_family      = AF_INET;
     srv_addr.sin_port        = htons(SRVPORT);
     srv_addr.sin_addr.s_addr = htonl(SRVIPADDR);
 
+    listenfd = socket(AF_INET, SOCK_STREAM, 0);
+    ERR_N_DIE("Socket creation error");
 
     bind(listenfd, (SA*) &srv_addr, sizeof(srv_addr));
     ERR_N_DIE("Bind error");
@@ -50,7 +48,9 @@ main(int argc, char *argv[]) {
     ERR_N_DIE("Listen error");
     //--------------------------------------------------------------------------
 
-    printf("ok\n");
+    printf("Port:\t%d\n", SRVPORT);
+    printf("IP:\t%s\n",   inet_ntoa(srv_addr.sin_addr));
+
     while (1) {
         connfd = accept(listenfd, (SA*) NULL, NULL);
         ERR_N_DIE("Connfd error");
