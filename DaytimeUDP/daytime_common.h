@@ -1,4 +1,4 @@
-#ifndef ECHOTCP_COMMON_H
+#ifndef DAYTIME_COMMON_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,15 +8,14 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <errno.h>
+#include <time.h>
+
 
 #define SA    struct sockaddr
-#define SA_IN struct sockaddr_in
+#define SA_IN struct sockaddr_in // In steht für Internet, nicht input (sonderform von struct sockaddr)
 
-#define MAXLINE 10
 
 #define ERR_N_DIE(ERR_STR) if(errno) {perror(ERR_STR); exit(EXIT_FAILURE);}
 
-ssize_t writen(int fd, const void* ptr, size_t n);
-size_t  readline(int fd, void* ptr, size_t n);
 
 #endif
