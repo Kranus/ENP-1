@@ -1,5 +1,12 @@
 #include "daytime_common.h"
 
+#define SRVPORT   0xDEAF //6543       // zuf. port > well known 1024
+#define SRVIPADDR INADDR_ANY          // jede/irgendeine Adresse
+#define LISTENQ   5                   // backlog (idR max anz. listen-Verbindungen)
+
+int  init_srv_socket (SA_IN* srvaddr);
+void handle_connection (int connfd);  // name vllt etwas allgemein?
+
 int
 main(int argc, char *argv[]) {
 
@@ -100,4 +107,12 @@ void handle_connection (int connfd) {
     ERR_N_DIE("Write error");
 }
 
-// Test: Server-Programm 2 mal starten -> Port sollte belegt sein
+//------------------------------------------------------------------------------
+// Ausgabe
+// > ./srv
+//
+
+// Doppeltes ausführen des gleichen Serverprogrammes
+// > ./srv
+// > ./srv
+// Bind error: Address already in use
